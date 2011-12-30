@@ -45,7 +45,7 @@ public class AMachineTest {
         Symbol sym = null;
         AMachine instance = new AMachine();
         instance.addSymbol(sym);
-        
+        assertTrue(instance.getSymbols().size() == 2);
     }
 
     /**
