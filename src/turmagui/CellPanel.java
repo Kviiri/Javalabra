@@ -4,6 +4,7 @@
  */
 package turmagui;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import turma.Symbol;
 /**
  *
@@ -11,5 +12,5 @@ import turma.Symbol;
  */
 public class CellPanel extends JPanel {
     private Symbol sym;
-    
+    private JPopupMenu cellMenu;
 }

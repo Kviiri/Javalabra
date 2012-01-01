@@ -19,6 +19,7 @@ public class AMachine {
     private Symbol defaultSymbol;       //Will be the default symbol of all tapes created in this machine
     private State currentState;
     private int tapeIndex;
+    private int stepsTaken;
     public AMachine() {
         tapes = new ArrayList<Tape>();
         symbols = new HashSet<Symbol>();
@@ -30,6 +31,7 @@ public class AMachine {
         State halt = new State("HALT", true, symbols);
         states.add(halt);
         currentState = halt;
+        stepsTaken = 0;
     }
     
     public void addSymbol(Symbol sym) {
@@ -39,10 +41,10 @@ public class AMachine {
         }
     }
     public void addState(State s) {
+        states.add(s);
         for(Symbol sym : symbols) {
             s.addTransition(sym, new Transition());
         }
-        states.add(s);
     }
     public HashSet<Symbol> getSymbols() {
         return symbols;
