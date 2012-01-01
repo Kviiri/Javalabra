@@ -4,6 +4,7 @@
  */
 package turma;
 
+import java.util.HashSet;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,6 +57,62 @@ public class AMachineTest {
         System.out.println("advanceStep");
         AMachine instance = new AMachine();
         instance.advanceStep();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addState method, of class AMachine.
+     */
+    @Test
+    public void testAddState() {
+        System.out.println("addState");
+        State s = null;
+        AMachine instance = new AMachine();
+        instance.addState(s);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getSymbols method, of class AMachine.
+     */
+    @Test
+    public void testGetSymbols() {
+        System.out.println("getSymbols");
+        AMachine instance = new AMachine();
+        HashSet expResult = null;
+        HashSet result = instance.getSymbols();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getDefaultSymbol method, of class AMachine.
+     */
+    @Test
+    public void testGetDefaultSymbol() {
+        System.out.println("getDefaultSymbol");
+        AMachine instance = new AMachine();
+        Symbol expResult = null;
+        Symbol result = instance.getDefaultSymbol();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getTape method, of class AMachine.
+     */
+    @Test
+    public void testGetTape() {
+        System.out.println("getTape");
+        int i = 0;
+        AMachine instance = new AMachine();
+        Tape expResult = null;
+        Tape result = instance.getTape(i);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

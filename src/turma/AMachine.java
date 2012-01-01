@@ -25,7 +25,7 @@ public class AMachine {
         symbols = new HashSet<Symbol>();
         defaultSymbol = new Symbol(" ");
         symbols.add(defaultSymbol);
-        tapes.add(new Tape(defaultSymbol));
+        tapes.add(new Tape(this));
         tapeIndex = 0;
         states = new HashSet<State>();
         State halt = new State("HALT", true, symbols);
@@ -49,11 +49,21 @@ public class AMachine {
     public HashSet<Symbol> getSymbols() {
         return symbols;
     }
+    public Symbol getDefaultSymbol() {
+        return defaultSymbol;
+    }
     public void advanceStep() {
         Tape currentTape = tapes.get(tapeIndex);
         Transition trans = currentState.getTransition(currentTape.readSymbol());
         currentTape.writeSymbol(trans.getSym());
         currentTape.moveTape(trans.getDir());
-        currentState = trans.getSta();        
+        currentState = trans.getSta();
+        stepsTaken++;
+    }
+    private int getStepsTaken() {
+        return stepsTaken;
+    }
+    public Tape getTape(int i) {
+        return tapes.get(i);
     }
 }

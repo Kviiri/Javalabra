@@ -13,28 +13,42 @@ import java.util.LinkedList;
 public class Tape {
     private LinkedList<Symbol> symbols;
     private int rwi;        //Read-write Index
-    private Symbol defaultSymbol;   //The symbol that is used for "empty" tape cells
-    public Tape(Symbol s) {
+    private AMachine machine;
+    public Tape(AMachine machine) {
         symbols = new LinkedList<Symbol>();
-        symbols.add(s);
-        defaultSymbol = s;
+        this.machine = machine;
+        symbols.add(machine.getDefaultSymbol());
         rwi = 0;
     }
     public Symbol readSymbol() {
-        return symbols.get(rwi);
+        return getSymbol(rwi);
     }
     public void writeSymbol(Symbol s) {
-        symbols.remove(rwi);
-        symbols.add(rwi, s);
+        setSymbol(rwi, s);
+    }
+    public int getRwi() {
+        return rwi;
     }
     public int tapeLength() {
         return symbols.size();
+    }
+    public Symbol getSymbol(int i) {
+        return symbols.get(i);
+    }
+    /**
+     * setSymbol should ONLY be used for debugging and through other methods to avoid screwing the operation of the machine
+     * @param i
+     * @param s 
+     */
+    public void setSymbol(int i, Symbol s) {
+        if(i < symbols.size()) symbols.remove(i);
+        symbols.add(i, s);
     }
     public void moveTape(Direction dir) {
         switch(dir) {
             case LEFT:
                 if(rwi == 0) {
-                    symbols.add(0, defaultSymbol);
+                    symbols.add(0, machine.getDefaultSymbol());
                 }
                 else {
                     rwi--;
@@ -42,12 +56,16 @@ public class Tape {
                 break;
             case RIGHT:
                 if(rwi + 1 == symbols.size()) {
-                    symbols.add(rwi + 1, defaultSymbol);
+                    symbols.add(rwi + 1, machine.getDefaultSymbol());
                 }
                 rwi++;
                 break;
             default:
                 break;
         }
+    }
+
+    public void setRwi(int cellIndex) {
+        rwi = cellIndex;
     }
 }
