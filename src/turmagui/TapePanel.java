@@ -4,6 +4,10 @@
  */
 package turmagui;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import turma.Tape;
@@ -13,21 +17,15 @@ import turma.Tape;
  */
 public class TapePanel extends JPanel {
     private Tape sourceTape;
-    private JScrollPane scrollArea;
-    
     public TapePanel(Tape tape) {
-        scrollArea = new JScrollPane(this);
         sourceTape = tape;
-        this.setSize(500, 100);
-        
-        for(int i = 0; i < sourceTape.tapeLength(); i++) {
-            this.add(new CellPanel(sourceTape, i, this));
-        }       
+        this.setSize(new Dimension(tape.length() * 50, 60));        
+        updateGUI();
     }
     
-    public void updateGUI() {
-        for(int i = 0; i < sourceTape.tapeLength(); i++) {
-            this.add(new CellPanel(sourceTape, i, this));
+    public final void updateGUI() {
+        for(int i = 0; i < sourceTape.length(); i++) {
+           this.add(new CellPanel(sourceTape, i, this));
         }
     }
 }

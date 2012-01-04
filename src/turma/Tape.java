@@ -29,7 +29,7 @@ public class Tape {
     public int getRwi() {
         return rwi;
     }
-    public int tapeLength() {
+    public int length() {
         return symbols.size();
     }
     public Symbol getSymbol(int i) {

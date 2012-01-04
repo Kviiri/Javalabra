@@ -85,7 +85,7 @@ public class TapeTest {
         t.moveTape(Direction.LEFT);
         t.moveTape(Direction.RIGHT);
         int expResult = 3;
-        int result = t.tapeLength();
+        int result = t.length();
         assertEquals(expResult, result);
     }
 
