@@ -7,65 +7,101 @@ package turma;
 import java.util.LinkedList;
 
 /**
- *
+ * Represents a single Tape in an AMachine. Contains the Symbols of the Tape in a
+ * LinkedList and a read-write head that determines which part of the List is being
+ * updated when executing the machine.
  * @author kviiri
  */
 public class Tape {
     private LinkedList<Symbol> symbols;
-    private int rwi;        //Read-write Index
+    private int head;        //Read-write Index
     private AMachine machine;
+    /**
+     * Creates a new Tape that belongs to a specific AMachine. The Tape is initialized
+     * to have a single Symbol that is the AMachine's default symbol. The head is
+     * initialized to zero.
+     * @param machine The machine this Tape belongs to
+     */
     public Tape(AMachine machine) {
         symbols = new LinkedList<Symbol>();
         this.machine = machine;
         symbols.add(machine.getDefaultSymbol());
-        rwi = 0;
+        head = 0;
     }
+    /**
+     * Reads the Symbol at the location of the read-write head.
+     * @return The Symbol read
+     */
     public Symbol readSymbol() {
-        return getSymbol(rwi);
+        return getSymbol(head);
     }
+    /**
+     * Writes a Symbol at the location of the read-write head.
+     * @param s The Symbol to be written
+     */
     public void writeSymbol(Symbol s) {
-        setSymbol(rwi, s);
+        setSymbol(head, s);
     }
-    public int getRwi() {
-        return rwi;
+    /**
+     * @return The current location of the read-write head
+     */
+    public int getHead() {
+        return head;
     }
+    /**
+     * @return The current length of the Tape
+     */
     public int length() {
         return symbols.size();
     }
+    /**
+     * Gets the Symbol at the Tape position
+     * @param i The Tape position specified for reading
+     * @return The Symbol at the specified position
+     */
     public Symbol getSymbol(int i) {
         return symbols.get(i);
     }
     /**
-     * setSymbol should ONLY be used for debugging and through other methods to avoid screwing the operation of the machine
-     * @param i
-     * @param s 
+     * Sets the Symbol at the specified position of the Tape.
+     * @param i The location in which the Symbol should be added (0...current tape length)
+     * @param s The Symbol to be added.
      */
     public void setSymbol(int i, Symbol s) {
         if(i < symbols.size()) symbols.remove(i);
         symbols.add(i, s);
     }
+    /**
+     * Moves the Tape one step left or right, either incrementing or decrementing head.
+     * The Tape is expanded dynamically, if needed, using the default symbol of the
+     * parent AMachine.
+     * @param dir The Direction to move the Tape in.
+     */
     public void moveTape(Direction dir) {
         switch(dir) {
             case LEFT:
-                if(rwi == 0) {
+                if(head == 0) {
                     symbols.add(0, machine.getDefaultSymbol());
                 }
                 else {
-                    rwi--;
+                    head--;
                 }
                 break;
             case RIGHT:
-                if(rwi + 1 == symbols.size()) {
-                    symbols.add(rwi + 1, machine.getDefaultSymbol());
+                if(head + 1 == symbols.size()) {
+                    symbols.add(head + 1, machine.getDefaultSymbol());
                 }
-                rwi++;
+                head++;
                 break;
             default:
                 break;
         }
     }
-
-    public void setRwi(int cellIndex) {
-        rwi = cellIndex;
+    /**
+     * Sets the location of the head.
+     * @param cellIndex The new location for the head.
+     */
+    public void setHead(int cellIndex) {
+        head = cellIndex;
     }
 }

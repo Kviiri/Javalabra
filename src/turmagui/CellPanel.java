@@ -43,7 +43,7 @@ public class CellPanel extends JPanel {
         symbolTextLabel = new JLabel(currentTape.getSymbol(cellIndex).getName());
         symbolTextLabel.setHorizontalAlignment(JLabel.CENTER);
         
-        if(t.getRwi() == cellIndex) {
+        if(t.getHead() == cellIndex) {
             indexLabel.setOpaque(true);
             indexLabel.setBackground(Color.RED);
         }
@@ -52,7 +52,7 @@ public class CellPanel extends JPanel {
         setHeadHere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                currentTape.setRwi(cellIndex);
+                currentTape.setHead(cellIndex);
                 parentPanel.updateGUI();
             }
         });

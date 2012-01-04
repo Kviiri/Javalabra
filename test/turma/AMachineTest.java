@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  * @author kviiri
  */
 public class AMachineTest {
-    
+    AMachine am;
     public AMachineTest() {
     }
 
@@ -31,6 +31,7 @@ public class AMachineTest {
     
     @Before
     public void setUp() {
+        am = new AMachine();
     }
     
     @After
@@ -41,12 +42,10 @@ public class AMachineTest {
      * Test of addSymbol method, of class AMachine.
      */
     @Test
-    public void testAddSymbol() {
+    public void testAddSymbolResultsInSymbolBeingAdded() {
         System.out.println("addSymbol");
-        Symbol sym = null;
-        AMachine instance = new AMachine();
-        instance.addSymbol(sym);
-        assertTrue(instance.getSymbols().size() == 2);
+        am.addSymbol(new Symbol("aasd"));
+        assertEquals(2, am.getSymbols().size());
     }
 
     /**
@@ -54,25 +53,26 @@ public class AMachineTest {
      */
     @Test
     public void testAdvanceStep() {
-        System.out.println("advanceStep");
-        AMachine instance = new AMachine();
-        instance.advanceStep();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of addState method, of class AMachine.
      */
     @Test
-    public void testAddState() {
+    public void testAddStateAddsState() {
         System.out.println("addState");
-        State s = null;
-        AMachine instance = new AMachine();
-        instance.addState(s);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        am.addState(new State("epavarmuuden tila", false, am.getSymbols()));
+        assertEquals(2, am.getStates().size());
     }
+    @Test
+    public void testAddSymbolAddsTransition() {
+        System.out.println("addState");
+        State s = new State("epavarmuuden tila", false, am.getSymbols());
+        am.addState(s);
+        assertTrue(s.getTransition(am.getDefaultSymbol()) != null);
+    }
+
 
     /**
      * Test of getSymbols method, of class AMachine.

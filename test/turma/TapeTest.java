@@ -49,7 +49,7 @@ public class TapeTest {
     @Test
     public void testReadSymbolReturnsSameValueAsGetSymbolAtRWI() {
         System.out.println("readSymbol");
-        assertEquals(t.readSymbol(), t.getSymbol(t.getRwi()));
+        assertEquals(t.readSymbol(), t.getSymbol(t.getHead()));
     }
     /**
      * Test of writeSymbol method, of class Tape.
@@ -69,9 +69,9 @@ public class TapeTest {
     public void testMoveTapeMovesRWI() {
         System.out.println("moveTape");
         t.moveTape(Direction.RIGHT);
-        assertEquals(1, t.getRwi());
+        assertEquals(1, t.getHead());
         t.moveTape(Direction.LEFT);
-        assertEquals(0, t.getRwi());
+        assertEquals(0, t.getHead());
     }
 
     /**
@@ -97,7 +97,7 @@ public class TapeTest {
     public void testSetRwiWorksProperly() {
         System.out.println("setRwi");
         int cellIndex = 8;
-        t.setRwi(cellIndex);
-        assertEquals(cellIndex, t.getRwi());
+        t.setHead(cellIndex);
+        assertEquals(cellIndex, t.getHead());
     }
 }
