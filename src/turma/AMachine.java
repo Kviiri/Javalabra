@@ -5,6 +5,7 @@
 package turma;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -113,5 +114,13 @@ public class AMachine {
      */
     public HashSet<State> getStates() {
         return states;
+    }
+    
+    public HashSet<Transition> getTransitions() {
+        HashSet ret = new HashSet<Transition>();
+        for(State s : states) {
+            ret.addAll(s.getAllTransitions());
+        }
+        return ret;
     }
 }

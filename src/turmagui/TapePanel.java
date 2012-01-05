@@ -20,6 +20,7 @@ public class TapePanel extends JPanel {
     }
     
     public final void updateGUI() {
+        this.setSize(new Dimension(sourceTape.length() * 50, 60));
         for(int i = 0; i < sourceTape.length(); i++) {
            this.add(new CellPanel(sourceTape, i, this));
         }

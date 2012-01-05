@@ -4,6 +4,7 @@
  */
 package turma;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -61,5 +62,12 @@ public class State {
      */
     public Transition getTransition(Symbol s) {
         return transitions.get(s);
+    }
+    /**
+     * Returns a Collection of all the Transitions under this State
+     * @return See above
+     */
+    public Collection<Transition> getAllTransitions() {
+        return transitions.values();
     }
 }
