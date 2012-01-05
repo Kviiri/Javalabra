@@ -14,12 +14,12 @@ import turma.Tape;
 public class TapePanel extends JPanel {
     private Tape sourceTape;
     public TapePanel(Tape tape) {
-        sourceTape = tape;
-        this.setSize(new Dimension(tape.length() * 50, 60));        
+        sourceTape = tape;       
         updateGUI();
     }
     
     public final void updateGUI() {
+        this.removeAll();
         this.setSize(new Dimension(sourceTape.length() * 50, 60));
         for(int i = 0; i < sourceTape.length(); i++) {
            this.add(new CellPanel(sourceTape, i, this));
