@@ -40,25 +40,17 @@ public class AMachine {
     
     /**
      * Adds a Symbol to the AMachine's alphabet.
-     * Creates the necessary Transitions for all existing States as well.
      * @param sym - The Symbol to be added to the alphabet.
      */
     public void addSymbol(Symbol sym) {
         symbols.add(sym);
-        for(State s : states) {
-            s.addTransition(sym, new Transition());
-        }
     }
     /**
      * Adds a State to the AMachine's State set.
-     * Creates the necessary Transitions for all existing Symbols as well.
      * @param s 
      */
     public void addState(State s) {
         states.add(s);
-        for(Symbol sym : symbols) {
-            s.addTransition(sym, new Transition());
-        }
     }
     /**
      * @return HashSet of the Symbols in the AMachine's alphabet.
@@ -119,7 +111,7 @@ public class AMachine {
     public HashSet<Transition> getTransitions() {
         HashSet ret = new HashSet<Transition>();
         for(State s : states) {
-            ret.addAll(s.getAllTransitions());
+            ret.addAll(s.getAllTransitions().values());
         }
         return ret;
     }

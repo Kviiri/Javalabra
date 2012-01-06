@@ -67,5 +67,8 @@ public class Transition {
     public void setSym(Symbol sym) {
         this.sym = sym;
     }
-    
+    @Override
+    public String toString() {
+        return "WRITE " + sym.getName() + ", MOVE " + dir + ", ENTER " + sta;
+    }
 }
