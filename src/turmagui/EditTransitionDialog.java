@@ -4,6 +4,8 @@
  */
 package turmagui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -48,6 +50,29 @@ public class EditTransitionDialog extends JDialog {
         directionBox.addItem(Direction.LEFT);
         directionBox.addItem(Direction.RIGHT);
         directionBox.addItem(Direction.NONE);
+        
+        okButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                //Lord forgive me for all this type casting
+                State saveState = (State)oldStateBox.getSelectedItem();
+                Symbol saveSymbol = (Symbol)oldSymbolBox.getSelectedItem();
+                Transition newTransition = new Transition((Symbol)newSymbolBox.getSelectedItem(),
+                        (Direction)directionBox.getSelectedItem(), (State)newStateBox.getSelectedItem());
+                dispose();
+            }
+            
+        });
+        
+        cancelButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                dispose();
+            }
+            
+        });
     }
     public EditTransitionDialog(State state, Symbol symbol, Transition transition, AMachine machine) {
         this(machine);
@@ -56,5 +81,5 @@ public class EditTransitionDialog extends JDialog {
         newStateBox.setSelectedItem(transition.getSta());
         newSymbolBox.setSelectedItem(transition.getSym());
         directionBox.setSelectedItem(transition.getDir());
-    }
+    }    
 }

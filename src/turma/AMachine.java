@@ -107,7 +107,10 @@ public class AMachine {
     public HashSet<State> getStates() {
         return states;
     }
-    
+    /**
+     * 
+     * @return HashSet of all Transitions
+     */
     public HashSet<Transition> getTransitions() {
         HashSet ret = new HashSet<Transition>();
         for(State s : states) {

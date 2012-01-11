@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -49,6 +50,9 @@ public class CellPanel extends JPanel {
         }
         cellMenu = new JPopupMenu();
         JMenuItem setHeadHere = new JMenuItem("Set head here");
+        JMenu changeSymbol = new JMenu("Change symbol");
+        cellMenu.add(setHeadHere);
+        cellMenu.add(changeSymbol);
         setHeadHere.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,5 +1,6 @@
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +10,7 @@ import turma.State;
 import turma.Symbol;
 import turma.Tape;
 import turmagui.TapePanel;
+import turmagui.TransitionListPanel;
 
 /*
  * To change this template, choose Tools | Templates
@@ -21,22 +23,32 @@ import turmagui.TapePanel;
  * @author kviiri
  */
 public class Turma extends JFrame {
-    private TapePanel tp;
-    private JScrollPane scrollArea;
+    private TapePanel tape;
+    private TransitionListPanel transList;
+    private JScrollPane tapeScrollPane;
+    private JScrollPane transitionScrollPane;
     private JButton advanceStepButton;
-    public Turma(Tape t) {
+    private JPanel centerPanel;
+    public Turma(AMachine am) {
         this.setSize(600, 300);
         BorderLayout bl = new BorderLayout();
         this.setLayout(bl);
         bl.setHgap(20);
-        tp = new TapePanel(t);
-        scrollArea = new JScrollPane(tp);
-        scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        scrollArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        tape = new TapePanel(am.getTape());
+        tapeScrollPane = new JScrollPane(tape);
+        tapeScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        tapeScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        
+        transList = new TransitionListPanel(am);
+        transitionScrollPane = new JScrollPane(transList);
+        
         
         advanceStepButton = new JButton("Advance");
         
-        this.add(scrollArea, BorderLayout.NORTH);
+        
+        
+        this.add(transitionScrollPane, BorderLayout.WEST);
+        this.add(tapeScrollPane, BorderLayout.NORTH);
         this.add(advanceStepButton, BorderLayout.SOUTH);
     }
     
@@ -66,7 +78,7 @@ public class Turma extends JFrame {
         am.getTape(0).setSymbol(15, sym1);
         am.getTape(0).setSymbol(16, sym2);
         am.getTape(0).setSymbol(17, sym2);
-        Turma t = new Turma(am.getTape(0));
+        Turma t = new Turma(am);
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.show();
     }
