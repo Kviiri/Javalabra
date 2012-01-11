@@ -4,6 +4,7 @@
  */
 package turmagui;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -29,6 +30,7 @@ public class EditTransitionDialog extends JDialog {
     private JButton cancelButton;
     
     public EditTransitionDialog(AMachine machine) {
+        this.setLayout(new FlowLayout());
         oldStateBox = new JComboBox();
         oldSymbolBox = new JComboBox();
         newStateBox = new JComboBox();
@@ -50,6 +52,14 @@ public class EditTransitionDialog extends JDialog {
         directionBox.addItem(Direction.LEFT);
         directionBox.addItem(Direction.RIGHT);
         directionBox.addItem(Direction.NONE);
+        
+        this.add(oldStateBox);
+        this.add(oldSymbolBox);
+        this.add(newStateBox);
+        this.add(newSymbolBox);
+        this.add(directionBox);
+        this.add(okButton);
+        this.add(cancelButton);
         
         okButton.addActionListener(new ActionListener() {
 

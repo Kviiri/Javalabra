@@ -4,8 +4,13 @@
  */
 package turmagui;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import turma.AMachine;
 import turma.State;
 import turma.Symbol;
@@ -16,15 +21,12 @@ import turma.Symbol;
  */
 public class TransitionListPanel extends JPanel {
     private AMachine machine;
-    private GridLayout gl;
-    public TransitionListPanel(AMachine machine) {
-        this.machine = machine;
+    public TransitionListPanel(AMachine representedMachine) {
+        this.machine = representedMachine;        
+        updateGUI();
     }
-    public void updateGUI() {
-        this.removeAll();
-        gl = new GridLayout(1, 0);
-        this.setLayout(gl);
-        
+    public final void updateGUI() {
+        this.removeAll();        
         for(State s : machine.getStates()) {
             for(Symbol sym : s.getAllTransitions().keySet()) {
                 this.add(new TransitionPanel(s, sym, s.getTransition(sym), this));

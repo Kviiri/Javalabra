@@ -23,21 +23,17 @@ public class State {
      * @param name The name for the new State.
      * @param symbols The Symbols for which Transitions are created
      */
-    public State(String name, Set<Symbol> symbols) {
-        this(name, false, symbols);
+    public State(String name) {
+        this(name, false);
     }
     /**
      * Creates a new State.
      * @param name The name for the new State
      * @param isHaltingState true means the State is a halting state, false means it is not
-     * @param symbols The Symbols for which Transitions are created
      */
-    public State(String name, boolean isHaltingState, Set<Symbol> symbols) {
+    public State(String name, boolean isHaltingState) {
         transitions = new HashMap<Symbol, Transition>();
         this.isHaltingState = isHaltingState;
-        for(Symbol s : symbols) {
-            transitions.put(s, new Transition());
-        }
     }
     /**
      * Adds or replaces the Transition for the input Symbol with a new one.

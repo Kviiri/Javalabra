@@ -104,4 +104,31 @@ public class Tape {
     public void setHead(int cellIndex) {
         head = cellIndex;
     }
+    /**
+     * Deletes the specified cell from the tape. The head may be set to follow the
+     * cell it is on. If the head would wind up outside the Tape, it is automatically
+     * relocated to the last cell. Removing the last cell in the Tape causes EmptyTapeException
+     * to be thrown.
+     * @param deleteIndex The index to the cell to delete
+     * @param moveHead If true, the head will stick to its current cell instead of the current index
+     * @throws EmptyTapeException
+     */
+    public void deleteCell(int deleteIndex, boolean moveHead) throws EmptyTapeException {
+        if(symbols.size() == 1) {
+            throw new EmptyTapeException("cannot remove the last cell of a tape");
+        }
+        if(moveHead && deleteIndex < head) head--;
+        symbols.remove(deleteIndex);
+    }
+
+    /**
+     * Inserts a Symbol in the specified location.
+     * @param cellIndex The location to insert in (0 is the first)
+     * @param s Symbol to be inserted
+     * @param moveHead if true, the head will stick to the current cell instead of the current index
+     */
+    public void insertSymbol(int cellIndex, Symbol s, boolean moveHead) {
+        if(moveHead && cellIndex <= head) head++;
+        symbols.add(cellIndex, s);
+    }
 }

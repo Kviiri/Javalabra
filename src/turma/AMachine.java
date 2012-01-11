@@ -5,7 +5,6 @@
 package turma;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 
 /**
@@ -32,7 +31,7 @@ public class AMachine {
         tapes.add(new Tape(this));
         tapeIndex = 0;
         states = new HashSet<State>();
-        State halt = new State("HALT", true, symbols);
+        State halt = new State("HALT", true);
         states.add(halt);
         currentState = halt;
         stepsTaken = 0;
