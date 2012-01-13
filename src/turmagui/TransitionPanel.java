@@ -25,6 +25,7 @@ public class TransitionPanel extends JPanel {
     private Transition newTransition;
     private JTextField dataField;
     private JButton editButton;
+    private JButton deleteButton;
     private TransitionListPanel parentPanel;
     public TransitionPanel(State state, Symbol currentSymbol, Transition transition, TransitionListPanel parent) {
         parentPanel = parent;
@@ -44,8 +45,22 @@ public class TransitionPanel extends JPanel {
             }
             
         });
+        
+        deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                oldState.removeTransition(oldSymbol);
+                parentPanel.updateGUI();
+                parentPanel.revalidate();
+            }
+            
+        });
+        
         this.add(dataField);
         this.add(editButton);
+        this.add(deleteButton);
         
     }
 }
