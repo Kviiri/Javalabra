@@ -117,7 +117,8 @@ public class Tape {
         if(symbols.size() == 1) {
             throw new EmptyTapeException("cannot remove the last cell of a tape");
         }
-        if(moveHead && deleteIndex < head) head--;
+        if(moveHead && deleteIndex <= head) head--;
+        if(head < 0) head = 0;
         symbols.remove(deleteIndex);
     }
 
