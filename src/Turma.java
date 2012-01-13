@@ -92,7 +92,7 @@ public class Turma extends JFrame {
         });
         
         listPanel = new StateSymbolListPanel(am);
-        
+        this.setTitle("TurMa Press Release");
         this.add(listPanel, BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(tapeScrollPane, BorderLayout.NORTH);
