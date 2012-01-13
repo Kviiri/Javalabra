@@ -47,7 +47,7 @@ public class Turma extends JFrame {
     private JButton addTransitionButton;
     private JPanel leftPanel;
     private JMenuBar mainMenuBar;
-    private JMenu fileMenu;
+    private JMenu helpMenu;
     private JMenuItem about;
     public Turma(AMachine machine) {
         am = machine;
@@ -111,9 +111,9 @@ public class Turma extends JFrame {
             }
             
         });
-        fileMenu = new JMenu("File");
-        fileMenu.add(about);
-        mainMenuBar.add(fileMenu);
+        helpMenu = new JMenu("Help");
+        helpMenu.add(about);
+        mainMenuBar.add(helpMenu);
         this.add(mainMenuBar);        
         this.setJMenuBar(mainMenuBar);
         
