@@ -7,6 +7,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +20,7 @@ import turma.State;
 import turma.Symbol;
 import turma.Tape;
 import turma.Transition;
+import turmagui.AboutDialog;
 import turmagui.EditTransitionDialog;
 import turmagui.StateSymbolListPanel;
 import turmagui.TapePanel;
@@ -42,6 +46,9 @@ public class Turma extends JFrame {
     private JButton advanceStepButton;
     private JButton addTransitionButton;
     private JPanel leftPanel;
+    private JMenuBar mainMenuBar;
+    private JMenu fileMenu;
+    private JMenuItem about;
     public Turma(AMachine machine) {
         am = machine;
         this.setSize(600, 300);
@@ -93,6 +100,24 @@ public class Turma extends JFrame {
         
         listPanel = new StateSymbolListPanel(am);
         this.setTitle("TurMa Press Release");
+        
+        mainMenuBar = new JMenuBar();
+        about = new JMenuItem("About...");
+        about.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                AboutDialog ad = new AboutDialog();
+                ad.show();
+            }
+            
+        });
+        fileMenu = new JMenu("File");
+        fileMenu.add(about);
+        mainMenuBar.add(fileMenu);
+        this.add(mainMenuBar);        
+        this.setJMenuBar(mainMenuBar);
+        
+        
         this.add(listPanel, BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(tapeScrollPane, BorderLayout.NORTH);
