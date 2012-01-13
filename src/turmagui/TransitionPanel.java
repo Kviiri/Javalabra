@@ -20,25 +20,32 @@ import turma.Transition;
  * @author kviiri
  */
 public class TransitionPanel extends JPanel {
-    private State state;
-    private Symbol currentSymbol;
-    private Transition transition;
+    private State oldState;
+    private Symbol oldSymbol;
+    private Transition newTransition;
     private JTextField dataField;
     private JButton editButton;
+    private TransitionListPanel parentPanel;
     public TransitionPanel(State state, Symbol currentSymbol, Transition transition, TransitionListPanel parent) {
-        this.currentSymbol = currentSymbol;
-        this.state = state;
-        this.transition = transition;
+        parentPanel = parent;
+        oldSymbol = currentSymbol;
+        oldState = state;
+        newTransition = transition;
         dataField = new JTextField(state + ", " + currentSymbol + " :  " + transition);
+        dataField.setEditable(false);
         editButton = new JButton("Edit");
-        this.add(dataField);
-        this.add(editButton);
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //TODO: Open edit dialog
+                EditTransitionDialog etd = new EditTransitionDialog(oldState, oldSymbol, newTransition, parentPanel.getMachine());
+                etd.show();
+                parentPanel.updateGUI();
+                parentPanel.revalidate();
             }
             
         });
+        this.add(dataField);
+        this.add(editButton);
+        
     }
 }

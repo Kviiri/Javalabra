@@ -31,6 +31,8 @@ public class EditTransitionDialog extends JDialog {
     
     public EditTransitionDialog(AMachine machine) {
         this.setLayout(new FlowLayout());
+        this.setSize(300,100);
+        this.setModal(true);
         oldStateBox = new JComboBox();
         oldSymbolBox = new JComboBox();
         newStateBox = new JComboBox();
@@ -70,6 +72,7 @@ public class EditTransitionDialog extends JDialog {
                 Symbol saveSymbol = (Symbol)oldSymbolBox.getSelectedItem();
                 Transition newTransition = new Transition((Symbol)newSymbolBox.getSelectedItem(),
                         (Direction)directionBox.getSelectedItem(), (State)newStateBox.getSelectedItem());
+                saveState.addTransition(saveSymbol, newTransition);
                 dispose();
             }
             

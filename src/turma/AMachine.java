@@ -23,22 +23,19 @@ public class AMachine {
     /**
      * Creates a new AMachine with the default Symbol " ", a single Tape and a "HALT" state (which is a halting state).
      */
-    public AMachine() {
+    public AMachine(Symbol def, State initialState) {
+        this.defaultSymbol = def;
+        this.currentState = initialState;
         tapes = new ArrayList<Tape>();
         symbols = new HashSet<Symbol>();
-        defaultSymbol = new Symbol(" ");
-        symbols.add(defaultSymbol);
         tapes.add(new Tape(this));
         tapeIndex = 0;
         states = new HashSet<State>();
-        State halt = new State("HALT", true);
-        states.add(halt);
-        currentState = halt;
         stepsTaken = 0;
     }
     
     /**
-     * Adds a Symbol to the AMachine's alphabet.
+     * Adds a Symbol to the AMachine's alphabet. The first Symbol added will be the "default" symbol
      * @param sym - The Symbol to be added to the alphabet.
      */
     public void addSymbol(Symbol sym) {
@@ -71,9 +68,11 @@ public class AMachine {
      * 
      * advanceStep also increases the step counter of the AMachine by one.
      */
-    public void advanceStep() {
+    public void advanceStep() throws NoTransitionException {
+        if(currentState.isHaltingState()) return;
         Tape currentTape = tapes.get(tapeIndex);
         Transition trans = currentState.getTransition(currentTape.readSymbol());
+        if(trans == null) throw new NoTransitionException("no transition for current state");
         currentTape.writeSymbol(trans.getSym());
         currentTape.moveTape(trans.getDir());
         currentState = trans.getSta();
@@ -116,5 +115,12 @@ public class AMachine {
             ret.addAll(s.getAllTransitions().values());
         }
         return ret;
+    }
+    public State getCurrentState() {
+        return currentState;
+    }
+    public void setCurrentState(State s) {
+        states.add(s);
+        this.currentState = s;
     }
 }

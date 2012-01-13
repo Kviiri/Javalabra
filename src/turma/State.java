@@ -33,6 +33,7 @@ public class State {
      */
     public State(String name, boolean isHaltingState) {
         transitions = new HashMap<Symbol, Transition>();
+        this.name = name;
         this.isHaltingState = isHaltingState;
     }
     /**
@@ -64,5 +65,20 @@ public class State {
      */
     public HashMap<Symbol, Transition> getAllTransitions() {
         return transitions;
+    }
+    /**
+     * 
+     * @return the name of the transition 
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
+    /**
+     * 
+     * @return true iff this State is halting state
+     */
+    public boolean isHaltingState() {
+        return isHaltingState;
     }
 }

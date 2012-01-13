@@ -3,15 +3,22 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import turma.AMachine;
+import turma.Direction;
+import turma.NoTransitionException;
 import turma.State;
 import turma.Symbol;
 import turma.Tape;
+import turma.Transition;
 import turmagui.EditTransitionDialog;
+import turmagui.StateSymbolListPanel;
 import turmagui.TapePanel;
 import turmagui.TransitionListPanel;
 
@@ -29,6 +36,7 @@ public class Turma extends JFrame {
     private AMachine am;
     private TapePanel tape;
     private TransitionListPanel transList;
+    private StateSymbolListPanel listPanel;
     private JScrollPane tapeScrollPane;
     private JScrollPane transitionScrollPane;
     private JButton advanceStepButton;
@@ -60,31 +68,54 @@ public class Turma extends JFrame {
                 EditTransitionDialog etd = new EditTransitionDialog(am);
                 etd.show();
                 transList.updateGUI();
+                transList.revalidate();
             }
             
         });
         
         
         advanceStepButton = new JButton("Advance");
+        advanceStepButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                try {
+                    am.advanceStep();
+                    tape.updateGUI();
+                    listPanel.updateGUI();
+                } catch (NoTransitionException nte) {
+                     JOptionPane.showMessageDialog(null, nte, "HUPS", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            }
+            
+        });
         
+        listPanel = new StateSymbolListPanel(am);
         
-        
+        this.add(listPanel, BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(tapeScrollPane, BorderLayout.NORTH);
         this.add(advanceStepButton, BorderLayout.SOUTH);
     }
     
     public static void main(String[] args) {
-        AMachine am = new AMachine();
-        State state1 = new State("Asd", false);
-        Symbol sym1 = new Symbol("A");
-        Symbol sym2 = new Symbol("B");
+        State state1 = new State("A", false);
+        State state2 = new State("B", false);
+        State halt = new State("HALT", true);
+        Symbol sym0 = new Symbol("0");
+        Symbol sym1 = new Symbol("1");
+        AMachine am = new AMachine(sym0, state1);
         am.addState(state1);
+        am.addState(state2);
+        am.addState(halt);
         am.addSymbol(sym1);
-        am.addSymbol(sym2);
-        am.getTape(0).setSymbol(1, sym1);
-        am.getTape(0).setSymbol(2, sym2);
-        am.getTape(0).setSymbol(0, sym2);
+        am.addSymbol(sym0);
+        state1.addTransition(sym0, new Transition(sym1, Direction.RIGHT, state2));
+        state1.addTransition(sym1, new Transition(sym1, Direction.LEFT, state2));
+        state2.addTransition(sym0, new Transition(sym1, Direction.LEFT, state1));
+        state2.addTransition(sym1, new Transition(sym1, Direction.RIGHT, halt));
+        
         Turma t = new Turma(am);
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.show();

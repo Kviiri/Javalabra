@@ -33,4 +33,8 @@ public class TransitionListPanel extends JPanel {
             }
         }
     }
+
+    public AMachine getMachine() {
+        return machine;
+    }
 }

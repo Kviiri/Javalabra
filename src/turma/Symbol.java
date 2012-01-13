@@ -30,4 +30,12 @@ public class Symbol {
     public void setname(String name) {
         this.name = name;
     }
+    
+    /**
+     * @return The Symbol's name
+     */
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
