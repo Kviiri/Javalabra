@@ -5,6 +5,8 @@
 package turma;
 
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,6 +20,10 @@ import static org.junit.Assert.*;
  */
 public class AMachineTest {
     AMachine am;
+    Symbol testSymbol;
+    Symbol anotherTestSymbol;
+    State testState;
+    State anotherTestState;
     public AMachineTest() {
     }
 
@@ -31,7 +37,11 @@ public class AMachineTest {
     
     @Before
     public void setUp() {
-        am = new AMachine();
+        testSymbol = new Symbol("derp");
+        anotherTestSymbol = new Symbol("herp");
+        testState = new State("hurr", false);
+        anotherTestState = new State("durr", true);
+        am = new AMachine(testSymbol, testState);
     }
     
     @After
@@ -44,48 +54,70 @@ public class AMachineTest {
     @Test
     public void testAddSymbolResultsInSymbolBeingAdded() {
         System.out.println("addSymbol");
-        am.addSymbol(new Symbol("aasd"));
+        am.addSymbol(anotherTestSymbol);
         assertEquals(2, am.getSymbols().size());
     }
 
-    /**
-     * Test of advanceStep method, of class AMachine.
-     */
+    //Accessory for advanceStep testing
+    public void initializeAdvanceStep() {
+        am.addSymbol(anotherTestSymbol);
+        am.addState(anotherTestState);
+        testState.addTransition(testSymbol, new Transition(anotherTestSymbol, Direction.LEFT, anotherTestState));
+        try {
+            am.advanceStep();
+        } catch (NoTransitionException ex) {
+            fail("Transition fail when initializing test :(");
+        }
+    }
     @Test
-    public void testAdvanceStep() {
+    public void testAdvanceStepIncrementsStepsTaken() {
+        initializeAdvanceStep();
+        assertEquals(1, am.getStepsTaken());
+    }
+    @Test
+    public void testAdvanceStepMovesTape() {
+        initializeAdvanceStep();
+        Tape t = am.getTape();
+        assertEquals(0, t.getHead());
+    }
+    @Test
+    public void testAdvanceStepWroteCorrectSymbol() {
+        initializeAdvanceStep();
+        Tape t = am.getTape();
+        assertEquals(anotherTestSymbol, t.getSymbol(1));
+    }
+    @Test
+    public void testAdvanceStepEntersCorrectState() {
+        initializeAdvanceStep();
+        assertEquals(anotherTestState, am.getCurrentState());
+    }
+    @Test
+    public void testAdvanceStepInHaltingStateDoesNothing() {
+        initializeAdvanceStep();
+        try {
+            am.advanceStep();
+        } catch (NoTransitionException ex) {
+            fail("Exception occurred");
+        }
+        assertEquals(1, am.getStepsTaken());
         
     }
 
+    
     /**
      * Test of addState method, of class AMachine.
      */
     @Test
     public void testAddStateAddsState() {
         System.out.println("addState");
-        am.addState(new State("epavarmuuden tila", false, am.getSymbols()));
+        am.addState(anotherTestState);
         assertEquals(2, am.getStates().size());
     }
     @Test
-    public void testAddSymbolAddsTransition() {
-        System.out.println("addState");
-        State s = new State("epavarmuuden tila", false, am.getSymbols());
-        am.addState(s);
-        assertTrue(s.getTransition(am.getDefaultSymbol()) != null);
-    }
-
-
-    /**
-     * Test of getSymbols method, of class AMachine.
-     */
-    @Test
-    public void testGetSymbols() {
-        System.out.println("getSymbols");
-        AMachine instance = new AMachine();
-        HashSet expResult = null;
-        HashSet result = instance.getSymbols();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAddSymbolAddsSymbol() {
+        System.out.println("addSymbol");
+        am.addSymbol(anotherTestSymbol);
+        assertEquals(2, am.getSymbols().size());
     }
 
     /**
@@ -94,26 +126,17 @@ public class AMachineTest {
     @Test
     public void testGetDefaultSymbol() {
         System.out.println("getDefaultSymbol");
-        AMachine instance = new AMachine();
-        Symbol expResult = null;
-        Symbol result = instance.getDefaultSymbol();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(testSymbol, am.getDefaultSymbol());
     }
-
-    /**
-     * Test of getTape method, of class AMachine.
-     */
+    
     @Test
-    public void testGetTape() {
-        System.out.println("getTape");
-        int i = 0;
-        AMachine instance = new AMachine();
-        Tape expResult = null;
-        Tape result = instance.getTape(i);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testNoTransitionExceptionOccursWhenAppropriate() {
+        am.setCurrentState(new State("exceptioner"));
+        try {
+            am.advanceStep();
+        } catch (NoTransitionException ex) {
+            return;
+        }
+        fail("Expected a NoTransitionException!");
     }
 }

@@ -28,9 +28,11 @@ public class AMachine {
         this.currentState = initialState;
         tapes = new ArrayList<Tape>();
         symbols = new HashSet<Symbol>();
+        symbols.add(def);
         tapes.add(new Tape(this));
         tapeIndex = 0;
         states = new HashSet<State>();
+        states.add(initialState);
         stepsTaken = 0;
     }
     
@@ -81,7 +83,7 @@ public class AMachine {
     /**
      * @return The step counter's value (starts at zero, incremented every time advanceStep() is called) 
      */
-    private int getStepsTaken() {
+    public int getStepsTaken() {
         return stepsTaken;
     }
     /**
@@ -116,9 +118,17 @@ public class AMachine {
         }
         return ret;
     }
+    /**
+     * 
+     * @return current State of the machine
+     */
     public State getCurrentState() {
         return currentState;
     }
+    /**
+     * Sets the current State of the machine
+     * @param s The new State
+     */
     public void setCurrentState(State s) {
         states.add(s);
         this.currentState = s;

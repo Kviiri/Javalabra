@@ -4,9 +4,7 @@
  */
 package turma;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * State represents a single state of the Turing Machine.
