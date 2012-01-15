@@ -1,0 +1,59 @@
+TurMa - The Epic Turing Machine Simulator
+Tehnyt Kalle Viiri
+
+
+KÄYTTÖOHJE
+
+**
+
+Yleistä
+
+TurMa simuloi yksinauhaisia, deterministisiä Turingin koneita. Nauha on rajaamaton molempiin suuntiin, eli se kasvaa luku-kirjoituspään ylittäessä olemassaolevan nauhan rajan kumpaan suuntaan tahansa.
+
+
+**
+
+Näkymä
+
+TurMa-ikkunan yläosassa on koneen nauha. Jokaisessa nauhan solussa on solun järjestysnumero sekä solun symboli. Luku-kirjoituspään sijainti on merkitty punaisella värillä.
+
+Ikkunan vasemmassa laidassa on tilasiirtymäpaneeli. Paneelissa näkyvät olemassaolevat tilasiirtymät. Uusia tilasiirtymiä voi lisätä New Transition-painikkeen avulla. Tilasiirtymää voi muokata painamalla Edit-painiketta tai sen voi poistaa painamalla Delete-painiketta. Huomaa, että koska koneet ovat deterministisiä, yhdelle tila-symboliparille voi olla vain yksi tilasiirtymä!
+
+Tilasiirtymät esitetään muodossa 
+<Nykyinen Tila>, <Nykyinen Symboli>: WRITE <Kirjoitettava Symboli>, MOVE <Liikkumissuunta L/R/N>, ENTER <Seuraava Tila>
+
+Ikkunan alareunassa on Advance-painike joka suorittaa seuraavan tilasiirtymän koneen tilan mukaan. Koneen symboliaakkosto ja eri tilat näkyvät ikkunan oikeassa laidassa olevissa paneeleissa - nykyinen symboli ja tila ovat korostettuja.
+
+
+**
+
+Toiminnot
+
+Nauhan muokkaaminen tapahtuu painamalla hiiren kakkospainikkeella nauhan soluja. Esiin ilmestyvästä valikosta voit valita toiminnon:
+
+Set head here: Asettaa luku-kirjoituspään valitsemasi solun kohdalle
+Change symbol: Vaihtaa valitsemasi solun symbolia
+Insert before: Lisää uuden solun valitsemasi solun vasemmalle puolelle
+Insert after: Lisää uuden solun valitsemasi solun oikealle puolelle
+Delete this cell: Poistaa valitsemasi solun
+
+Huom: Nauhassa on aina vähintään yksi solu, eli et voi poistaa ainoaa solua nauhalta.
+
+
+Tilasiirtymien lisääminen, poisto ja muokkaaminen tapahtuvat tilasiirtymäpaneelin kautta. New Transition-painike tai minkä tahansa tilasiirtymän Edit-painikkeen painaminen tuovat esiin tilasiirtymien muokkausikkunan. Valitse pudotusvalikoista:
+
+1. Nykyinen tila
+2. Nykyinen symboli
+3. Seuraava tila
+4. Kirjoitettava symboli
+5. Suunta johon luku-kirjoituspäätä siirretään
+
+Painamalla OK tallennat tilasiirtymän. Jos nykyisen tilaan ja symboliin liittyy jo tilasiirtymä, se korvataan uudella tilasiirtymällä. Painamalla Cancel voit sulkea muokkausdialogin tallentamatta muutoksia.
+
+
+
+TULOSSA:
+Tilojen ja symbolien lisääminen ja poistaminen
+Koneiden tallentaminen
+Moninauhakoneet ja muuta mukavaa...?
+
